@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewRetenueTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewRetenueLabel_codeRetenue}"/>
+                    <h:outputText value="#{retenueController.selected.codeRetenue}" title="#{bundle.ViewRetenueTitle_codeRetenue}"/>
+                    <h:outputText value="#{bundle.ViewRetenueLabel_cloturer}"/>
+                    <h:outputText value="#{retenueController.selected.cloturer}" title="#{bundle.ViewRetenueTitle_cloturer}"/>
+                    <h:outputText value="#{bundle.ViewRetenueLabel_dateRetenue}"/>
+                    <h:outputText value="#{retenueController.selected.dateRetenue}" title="#{bundle.ViewRetenueTitle_dateRetenue}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewRetenueLabel_debutRetenue}"/>
+                    <h:outputText value="#{retenueController.selected.debutRetenue}" title="#{bundle.ViewRetenueTitle_debutRetenue}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewRetenueLabel_montantAImputer}"/>
+                    <h:outputText value="#{retenueController.selected.montantAImputer}" title="#{bundle.ViewRetenueTitle_montantAImputer}"/>
+                    <h:outputText value="#{bundle.ViewRetenueLabel_nombreTranche}"/>
+                    <h:outputText value="#{retenueController.selected.nombreTranche}" title="#{bundle.ViewRetenueTitle_nombreTranche}"/>
+                    <h:outputText value="#{bundle.ViewRetenueLabel_observation}"/>
+                    <h:outputText value="#{retenueController.selected.observation}" title="#{bundle.ViewRetenueTitle_observation}"/>
+                    <h:outputText value="#{bundle.ViewRetenueLabel_codeUtilisateur}"/>
+                    <h:outputText value="#{retenueController.selected.codeUtilisateur}" title="#{bundle.ViewRetenueTitle_codeUtilisateur}"/>
+                    <h:outputText value="#{bundle.ViewRetenueLabel_codeTypeRetenue}"/>
+                    <h:outputText value="#{retenueController.selected.codeTypeRetenue}" title="#{bundle.ViewRetenueTitle_codeTypeRetenue}"/>
+                    <h:outputText value="#{bundle.ViewRetenueLabel_codeConseiller}"/>
+                    <h:outputText value="#{retenueController.selected.codeConseiller}" title="#{bundle.ViewRetenueTitle_codeConseiller}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{retenueController.destroyAndView}" value="#{bundle.ViewRetenueDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewRetenueEditLink}"/>
+                <br />
+                <h:commandLink action="#{retenueController.prepareCreate}" value="#{bundle.ViewRetenueCreateLink}" />
+                <br />
+                <h:commandLink action="#{retenueController.prepareList}" value="#{bundle.ViewRetenueShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewRetenueIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

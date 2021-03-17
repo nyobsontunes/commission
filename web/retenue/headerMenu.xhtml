@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Menu</title>
+    </h:head>
+    <h:body>
+ <p:panelGrid columns="4" style="margin-left: 250px">  
+                        <h:outputText value=" " />                
+                        <h:form>  
+                                    <p:growl id="messages"/> 
+                                    <p:menubar>
+                                        <p:menuitem value="Accueil" url="http://www.primefaces.org" icon="ui-icon-close" /> 
+                                        
+                                        <p:menuitem value="Retenues" outcome="/retenue/Create.xhtml" action="/retenue/Create.xhtml" icon="ui-icon-close" /> 
+                                        
+                                        <p:menuitem value="Transports" outcome="/retenue/List.xhtml" action="/retenue/List.xhtml" icon="ui-icon-close" />  
+
+                                        <p:submenu label="Commissions" icon="ui-icon-gear">
+                                            <p:menuitem value="Détail" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+                                            <p:menuitem value="Récapitulatif" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                                            <p:menuitem value="Synthese" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                                        </p:submenu>
+                                        
+                                        <p:submenu label="Gestion" icon="ui-icon-gear">
+                                            <p:menuitem value="Chargement des Emissions" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+                                            <p:menuitem value="Calculs et Versement" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                                            <p:menuitem value="Cloture d'un exercise" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                                        </p:submenu>
+                                        
+                                        <p:submenu label="Parametrage" icon="ui-icon-gear">
+                                            <p:menuitem value="Type de retenue" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+                                            <p:menuitem value="Type de transport" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                                            <p:menuitem value="Type de réclamation" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                                            <p:menuitem value="Conseiller" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+                                            <p:menuitem value="Classification par mode de paiement" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                                            <p:menuitem value="Utilisateur" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                                            <p:menuitem value="Droit d'accès utilisateur" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                                        </p:submenu> 
+                                    </p:menubar>
+                                </h:form> 
+                              <h:form>
+                                <p:commandLink id="ajax" actionListener="#{loginBean.logout()}">
+                                    <h:outputText value="Déconnexion" />
+                                </p:commandLink>
+                              </h:form>   
+                              <h:outputText value="Online user : #{loginBean.sessionUser.login}" />
+                    </p:panelGrid>
+    </h:body>
+</html>
+

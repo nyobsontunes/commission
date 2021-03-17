@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title> 
+                <h:outputStylesheet name="css/styles.css"/>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="150" transient="false" resizable="true" closable="true" collapsible="true">
+                     <ui:include src="headerMenu.xhtml" />
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="50" closable="true" collapsible="true">
+                  
+                </p:layoutUnit>
+ 
+
+                <p:layoutUnit position="center">
+                    <p:fieldset legend="Retenues" toggleable="true" toggleSpeed="500"> 
+                        <p:fieldset legend="Récherches" toggleSpeed="500"> 
+                           <h:form>  
+                               <p:panelGrid columns="13" style="margin-left: 50px"> 
+                                <h:outputText value="Date début : " />   
+                                <p:calendar id="mask"  required="true" value="#{retenueController.dated}"  pattern="MM/yyyy" mask="true" />
+                                <h:outputText value=" " /> 
+                                <h:outputText value="Date fin : " />
+                                <p:calendar id="mask2"  required="true" value="#{retenueController.datef}"  pattern="MM/yyyy" mask="true" mindate="14/09/16" />
+                                <h:outputText value=" " /> 
+                                <h:outputText value="Conseiller" /> 
+                               <p:autoComplete id="dd1"  dropdown="true" value="#{retenueController.conseiller}" completeMethod="#{retenueController.completeListeconseiller}" var="conseiller" itemLabel="#{conseiller.nomConseiller}" itemValue="#{conseiller}" converter="#{listeconseillerConverter}" forceSelection="true">  
+                                  <p:column>  
+                                     #{conseiller.nomConseiller}  
+                                  </p:column> 
+                                </p:autoComplete>
+                                <h:outputText value=" " /> 
+                                <h:outputText value=" " />  
+                                     <p:commandButton value="rechercher" actionListener="#{retenueController.search()}" update=":dataForm:tbl" icon="ui-icon-search" title="View">
+                                         
+                                    </p:commandButton> 
+                                    <h:commandLink  immediate="true" actionListener="#{retenueController.goToCreate()}" >
+                                        <p:graphicImage value="/resources/images/Ajouter/ajouter-16.png" />
+                                    </h:commandLink> 
+                           </p:panelGrid>    
+                          </h:form>      
+                        </p:fieldset>
+                        <h:form>  
+                         <p:panelGrid columns="6" style="margin-left: 0px"> 
+                                <h:outputText value="Modifier " />   
+                               <h:outputText value="Déja cloturé" /> 
+                                <h:outputText value="Supprimer" /> 
+                                <h:outputText value="Ajouter" />
+                                <h:outputText value="Imprimer" /> 
+                                <h:outputText value="Rechercher" />   
+                           </p:panelGrid>    
+                          </h:form>
+                        <h:form id="dataForm"> 
+                        <p:growl id="message" showDetail="true" />    
+                        <p:dataTable id="tbl" rows="10" paginator="true" emptyMessage="Aucune rétenue ne correspond à vos critère de recerce." widgetVar="retenueTable"  var="retenue"
+                                     value="#{retenueController.listeRetenueTemp}" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"> 
+                           
+                            <f:facet name="{Exporters}">
+                                 <h:commandLink>
+                                     <p:graphicImage  value="/resources/images/excel.png" />
+                                     <p:dataExporter type="xls" target="tbl" fileName="retenues" pageOnly="true"/>
+                                 </h:commandLink>
+
+                                 <h:commandLink>
+                                     <p:graphicImage  value="/resources/images/pdf.png" />
+                                     <p:dataExporter  preProcessor="#{retenueController.preProcessPDF}"  type="pdf" target="tbl" fileName="retenues" pageOnly="true" />
+                                 </h:commandLink>
+
+                                 <h:commandLink>
+                                     <p:graphicImage value="/resources/images/csv.png" />
+                                     <p:dataExporter type="csv" target="tbl" fileName="retenues" pageOnly="true" />
+                                 </h:commandLink>
+
+                                 <h:commandLink>
+                                     <p:graphicImage value="/resources/images/xml.png" />
+                                     <p:dataExporter type="xml" target="tbl" fileName="retenues" pageOnly="true"/>
+                                 </h:commandLink>    
+                            </f:facet>
+                            
+                            <p:column exportable="false" style="width:32px"> 
+                                <p:commandButton onclick="PF('retenueDialog').show();" icon="ui-icon-close" >
+                                        <f:setPropertyActionListener value="#{retenue}" target="#{retenueController.retenueTempSelected}" /> 
+                                </p:commandButton> 
+                            </p:column>
+
+                            <p:column exportable="false"  style="width:32px"> 
+                                <p:commandLink immediate="true"  action="#{retenueController.goToEdit()}" ajax="true" title="View">
+                                        <f:setPropertyActionListener value="#{retenue}" target="#{retenueController.retenueTempSelected}" />
+                                        <p:graphicImage value="/resources/images/Edit/edit-04.png" />
+                                    </p:commandLink>      
+                            </p:column>
+
+                            <p:column sortBy="#{retenue.conseiller}" headerText="Nom conseiller" >
+                                <h:outputText value="#{retenue.conseiller}" />
+                            </p:column>
+
+                            <p:column sortBy="#{retenue.montantTotalRetenue}" headerText="Retenue de départ" filterMatchMode="equals">
+                                <h:outputText value="#{retenue.montantTotalRetenue}" />
+                            </p:column>
+                            <p:column sortBy="#{retenue.valeurTrancheTotal}" headerText="Total Mesualité" filterMatchMode="equals">
+                                <h:outputText value="#{retenue.valeurTrancheTotal}" />
+                            </p:column>
+                            <p:column sortBy="#{retenue.dateRetenue}" headerText="Date Effet" filterMatchMode="contains">
+                                <h:outputText value="#{retenue.dateRetenue}" >
+                                   <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                                </h:outputText> 
+                            </p:column> 
+                            <p:column sortBy="#{retenue.montantARetenir}" headerText="Retenue Courante" filterMatchMode="equals">
+                                <h:outputText value="#{retenue.montantARetenir}" />
+                            </p:column>
+                            <p:column  sortBy="#{retenue.valeurTranche}" headerText="Rang de Mesualité" filterMatchMode="equals">
+                                <h:outputText value="#{retenue.valeurTranche}" />
+                            </p:column>
+                            <p:column sortBy="#{retenue.mois}" headerText="Mois courant" filterMatchMode="contains">
+                                <h:outputText value="#{retenue.mois}" >
+                                   <f:convertDateTime type="date" pattern="MM-yyyy"/>
+                                </h:outputText>  
+                            </p:column>
+                            <p:column sortBy="#{retenue.libelleTypeRetenue}" headerText="Type de Retenue" >
+                                <h:outputText value="#{retenue.libelleTypeRetenue}" />
+                            </p:column>
+                        </p:dataTable> 
+                      </h:form>      
+                    </p:fieldset>
+                </p:layoutUnit>
+
+            </p:layout>
+             <h:form id="confId"> 
+                <p:dialog header="Confirmation" widgetVar="retenueDialog" resizable="false" id="retenuetDlg"
+                     showEffect="fade" hideEffect="explode" modal="true">
+                     <h:outputText value="Confimez-vous la suppression cette retenue ? " />
+                     <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+                         <p:commandButton value="Oui"  actionListener="#{retenueController.delete()}"  update=":dataForm:message" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                         <p:commandButton value="Non" update=":confId:retenuetDlg"  styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                     </h:panelGrid> 
+                </p:dialog>
+             </h:form> 
+        </h:body>
+
+    </f:view>
+</html>
+

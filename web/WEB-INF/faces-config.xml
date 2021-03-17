@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.1"
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+   <!-- 
+    <lifecycle>
+        <phase-listener>com.lci.iPharma.manage.LoggerTest</phase-listener>
+    </lifecycle>
+   --> 
+
+       <lifecycle>
+        <phase-listener>com.commission.logger.LoggerCheck</phase-listener>
+       </lifecycle>
+<!-- la navigation pour la déconexion (et la redirection) -->
+    <navigation-rule>    
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>client.deconnect</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/welcomePrimefaces.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <error-page>
+       <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+       <location>/index.xhtml</location>
+    </error-page>
+  
+    <application>
+<!-- URL du package contenant les message_XX.properties -->
+       <resource-bundle>
+
+       </resource-bundle>
+<!-- Ajout de la langue par défaut et des langues supportées -->
+       <locale-config>
+         <locale-config>
+             <default-locale>fr</default-locale>
+             <supported-locale>fr</supported-locale> 
+         </locale-config>
+       </locale-config>
+   </application>
+     <managed-bean>
+        <managed-bean-name>loginBean</managed-bean-name>
+        <managed-bean-class>com.commission.managedbean.LoginBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean> 
+    <converter> 
+      <converter-id>listeconseillerConverter</converter-id> 
+      <converter-class>com.commission.converter.ListeconseillerConverter</converter-class> 
+    </converter> 
+     <converter> 
+      <converter-id>typeRetenueConverter</converter-id> 
+      <converter-class>com.commission.converter.TypeRetenueConverter</converter-class> 
+    </converter> 
+</faces-config>
+
+

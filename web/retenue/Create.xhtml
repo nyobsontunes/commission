@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title> 
+                <h:outputStylesheet name="css/styles.css"/>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="150" transient="false" resizable="true" closable="true" collapsible="true">
+                     <ui:include src="headerMenu.xhtml" />
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="50" closable="true" collapsible="true">
+                  
+                </p:layoutUnit>
+ 
+
+                <p:layoutUnit position="center">
+                    <p:fieldset legend="Retenue -> Page De Création" toggleable="true" toggleSpeed="500"> 
+                        <p:fieldset legend="Création d'Une Retenue Pour Un Conseiller" toggleSpeed="500"> 
+                           <h:form>  
+                               <p:panelGrid columns="7" style="margin-left: 200px"> 
+                                <h:outputText value="Conseiller :" />
+                                <p:autoComplete id="dd1"  dropdown="true" value="#{retenueController.retenue.codeConseiller}" required="true" completeMethod="#{retenueController.completeListeconseiller}" var="conseiller" itemLabel="#{conseiller.nomConseiller}" itemValue="#{conseiller}" converter="#{listeconseillerConverter}" forceSelection="true">  
+                                  <p:column>  
+                                     #{conseiller.nomConseiller}  
+                                  </p:column> 
+                                </p:autoComplete>
+                                <h:outputText value=" " />
+                                <h:outputText value=" " />
+                                <h:outputText value="Type Retenue : " />
+                                <p:autoComplete id="dd2" dropdown="true"  value="#{retenueController.retenue.codeTypeRetenue}" required="true" completeMethod="#{retenueController.completeTypeRetenue}" var="typeRetenue" itemLabel="#{typeRetenue.libelleTypeRetenue}" itemValue="#{typeRetenue}" converter="#{typeRetenueConverter}" forceSelection="true">  
+                                  <p:column>  
+                                     #{typeRetenue.libelleTypeRetenue}  
+                                  </p:column> 
+                                </p:autoComplete>
+                                <h:outputText value="Observations" />
+                                
+                                <h:outputText value="Montant à imputer :" />
+                                <p:inputNumber id="input2" required="true" value="#{retenueController.retenue.montantAImputer}" rendered="true" symbol=" FCFA" symbolPosition="s" 
+                                                decimalSeparator="," thousandSeparator=".">  
+                                </p:inputNumber>  
+                                <h:outputText value=" " />
+                                <h:outputText value=" " />
+                                <h:outputText value="Mensualité :" />
+                                <p:inputNumber id="input" required="true" value="#{retenueController.retenue.nombreTranche}"/>   
+                                <h:inputTextarea value="#{retenueController.retenueSelected.observation}"  /> 
+                                <h:outputText value="Jour :" />
+                                <p:calendar id="mask2" required="true" value="#{retenueController.retenue.dateRetenue}"  pattern="dd/MM/yyyy" mask="true" mindate="11/9/16" maxdate="24/9/16" />
+                                
+                                <h:outputText value=" " />
+                                <h:outputText value=" " />
+                                <h:outputText value="Mois :" />
+                                <p:calendar id="mask" required="true" value="#{retenueController.retenue.debutRetenue}"  pattern="MM/yyyy" mask="true" mindate="11/9/16" maxdate="24/9/16"/>
+                                <h:outputText value=" " />
+                                
+                                <h:outputText value=" " />
+                                <h:outputText value=" " />
+                                <p:commandButton value="Enregistrer"  action="#{retenueController.create()}" ajax="false" />
+                                <p:commandButton value="Annuler"  action="# " ajax="false" /> 
+                                <h:outputText value=" " />
+                                <h:outputText value=" " />
+                                <h:outputText value=" " /> 
+                           </p:panelGrid>    
+                          </h:form>      
+                        </p:fieldset>
+                    </p:fieldset>
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+

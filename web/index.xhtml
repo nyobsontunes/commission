@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Connexion</title>
+                <h:outputStylesheet name="css/jsfcrud.css"/>
+            </f:facet>
+        </h:head>
+        <h:body>
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+
+                </p:layoutUnit>
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+
+                </p:layoutUnit>
+                <p:layoutUnit position="center" style="border-color: white">
+                    <center> 
+                        <h:form> 
+                            <p:panelGrid columns="2" style="margin-top: 150px; box-shadow: 1px 1px 50px #555;"> 
+                                <f:facet name="header"> 
+                                    Authentification #{loginBean.message} 
+                                </f:facet> 
+                                <h:outputLabel for="login" value="Login: *" /> 
+                                <p:inputText id="login"  label="Login" required="true" value="#{loginBean.login}" />
+                                <h:outputLabel for="password" value="Password: *" /> 
+                                <p:password id="password"  required="true" label="Password" value="#{loginBean.password}"/>  
+                                <h:outputText value="Remember me " />
+                                <p:selectBooleanCheckbox value="#{loginBean.remember}" />
+                                <f:facet name="footer">  
+                                    <p:commandButton value="Connexion"  action="#{loginBean.login()}" ajax="false" />
+                                </f:facet> 
+                            </p:panelGrid> 
+                            <div> 
+                                <h:messages style="color: red;"></h:messages>
+                            </div> 
+                        </h:form>
+                    </center>
+                </p:layoutUnit>
+            </p:layout>
+            <br />
+            <h:link outcome="/retenue/List" value="Show All Retenue Items"/>
+            <br />
+            <h:link outcome="/typeRetenue/List" value="Show All TypeRetenue Items"/>
+            <br />
+            <h:link outcome="/user/List" value="Show All User Items"/>
+            <br />
+            <h:link outcome="/retenue/List" value="Show All Retenue Items"/>
+            <br />
+            <h:link outcome="/retenueDetail/List" value="Show All RetenueDetail Items"/>
+        </h:body>
+
+
+
+
+
+    </f:view>
+</html> 
+

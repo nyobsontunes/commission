@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListRetenueDetailTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListRetenueDetailEmpty}" rendered="#{retenueDetailController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{retenueDetailController.items.rowCount > 0}">
+                    <h:outputText value="#{retenueDetailController.pagination.pageFirstItem + 1}..#{retenueDetailController.pagination.pageLastItem + 1}/#{retenueDetailController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{retenueDetailController.previous}" value="#{bundle.Previous} #{retenueDetailController.pagination.pageSize}" rendered="#{retenueDetailController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{retenueDetailController.next}" value="#{bundle.Next} #{retenueDetailController.pagination.pageSize}" rendered="#{retenueDetailController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{retenueDetailController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRetenueDetailTitle_numeroOrdre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeroOrdre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRetenueDetailTitle_dateOrdreRetenue}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateOrdreRetenue}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRetenueDetailTitle_montantARetenir}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.montantARetenir}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRetenueDetailTitle_montantRetenue}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.montantRetenue}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRetenueDetailTitle_codeUtilisateur}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codeUtilisateur}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRetenueDetailTitle_dateValidation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateValidation}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRetenueDetailTitle_observation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.observation}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRetenueDetailTitle_cloturer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cloturer}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRetenueDetailTitle_typeRetenue}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.typeRetenue}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRetenueDetailTitle_retenue}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.retenue}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{retenueDetailController.prepareView}" value="#{bundle.ListRetenueDetailViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{retenueDetailController.prepareEdit}" value="#{bundle.ListRetenueDetailEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{retenueDetailController.destroy}" value="#{bundle.ListRetenueDetailDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{retenueDetailController.prepareCreate}" value="#{bundle.ListRetenueDetailCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListRetenueDetailIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

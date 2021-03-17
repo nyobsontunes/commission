@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateRetenueDetailTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateRetenueDetailLabel_numeroOrdre}" for="numeroOrdre" />
+                    <h:inputText id="numeroOrdre" value="#{retenueDetailController.selected.numeroOrdre}" title="#{bundle.CreateRetenueDetailTitle_numeroOrdre}" required="true" requiredMessage="#{bundle.CreateRetenueDetailRequiredMessage_numeroOrdre}"/>
+                    <h:outputLabel value="#{bundle.CreateRetenueDetailLabel_dateOrdreRetenue}" for="dateOrdreRetenue" />
+                    <h:inputText id="dateOrdreRetenue" value="#{retenueDetailController.selected.dateOrdreRetenue}" title="#{bundle.CreateRetenueDetailTitle_dateOrdreRetenue}" required="true" requiredMessage="#{bundle.CreateRetenueDetailRequiredMessage_dateOrdreRetenue}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateRetenueDetailLabel_montantARetenir}" for="montantARetenir" />
+                    <h:inputText id="montantARetenir" value="#{retenueDetailController.selected.montantARetenir}" title="#{bundle.CreateRetenueDetailTitle_montantARetenir}" />
+                    <h:outputLabel value="#{bundle.CreateRetenueDetailLabel_montantRetenue}" for="montantRetenue" />
+                    <h:inputText id="montantRetenue" value="#{retenueDetailController.selected.montantRetenue}" title="#{bundle.CreateRetenueDetailTitle_montantRetenue}" />
+                    <h:outputLabel value="#{bundle.CreateRetenueDetailLabel_codeUtilisateur}" for="codeUtilisateur" />
+                    <h:inputText id="codeUtilisateur" value="#{retenueDetailController.selected.codeUtilisateur}" title="#{bundle.CreateRetenueDetailTitle_codeUtilisateur}" required="true" requiredMessage="#{bundle.CreateRetenueDetailRequiredMessage_codeUtilisateur}"/>
+                    <h:outputLabel value="#{bundle.CreateRetenueDetailLabel_dateValidation}" for="dateValidation" />
+                    <h:inputText id="dateValidation" value="#{retenueDetailController.selected.dateValidation}" title="#{bundle.CreateRetenueDetailTitle_dateValidation}" required="true" requiredMessage="#{bundle.CreateRetenueDetailRequiredMessage_dateValidation}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateRetenueDetailLabel_observation}" for="observation" />
+                    <h:inputText id="observation" value="#{retenueDetailController.selected.observation}" title="#{bundle.CreateRetenueDetailTitle_observation}" />
+                    <h:outputLabel value="#{bundle.CreateRetenueDetailLabel_cloturer}" for="cloturer" />
+                    <h:inputText id="cloturer" value="#{retenueDetailController.selected.cloturer}" title="#{bundle.CreateRetenueDetailTitle_cloturer}" required="true" requiredMessage="#{bundle.CreateRetenueDetailRequiredMessage_cloturer}"/>
+                    <h:outputLabel value="#{bundle.CreateRetenueDetailLabel_typeRetenue}" for="typeRetenue" />
+                    <h:selectOneMenu id="typeRetenue" value="#{retenueDetailController.selected.typeRetenue}" title="#{bundle.CreateRetenueDetailTitle_typeRetenue}" required="true" requiredMessage="#{bundle.CreateRetenueDetailRequiredMessage_typeRetenue}">
+                        <f:selectItems value="#{typeRetenueController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateRetenueDetailLabel_retenue}" for="retenue" />
+                    <h:selectOneMenu id="retenue" value="#{retenueDetailController.selected.retenue}" title="#{bundle.CreateRetenueDetailTitle_retenue}" required="true" requiredMessage="#{bundle.CreateRetenueDetailRequiredMessage_retenue}">
+                        <f:selectItems value="#{retenueController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{retenueDetailController.create}" value="#{bundle.CreateRetenueDetailSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{retenueDetailController.prepareList}" value="#{bundle.CreateRetenueDetailShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateRetenueDetailIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,13 @@
+table tbody .ui-widget-content {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 0 solid #FFFFFF;
+    color: #333333;
+}
+
+table {
+    border: none;
+}
+
+table tr, table td {
+    border: none;
+}
