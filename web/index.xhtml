@@ -26,16 +26,16 @@
                         <h:form> 
                             <p:panelGrid columns="2" style="margin-top: 150px; box-shadow: 1px 1px 50px #555;"> 
                                 <f:facet name="header"> 
-                                    Authentification #{loginBean.message} 
+                                      
                                 </f:facet> 
                                 <h:outputLabel for="login" value="Login: *" /> 
-                                <p:inputText id="login"  label="Login" required="true" value="#{loginBean.login}" />
+                                <p:inputText id="login"  label="Login" required="true" value="#{loginBean.sessionUser.login}" />
                                 <h:outputLabel for="password" value="Password: *" /> 
-                                <p:password id="password"  required="true" label="Password" value="#{loginBean.password}"/>  
+                                <p:password id="password"  required="true" label="Password" value="#{loginBean.sessionUser.password}"/>  
                                 <h:outputText value="Remember me " />
                                 <p:selectBooleanCheckbox value="#{loginBean.remember}" />
                                 <f:facet name="footer">  
-                                    <p:commandButton value="Connexion"  action="#{loginBean.login()}" ajax="false" />
+                                    <p:commandButton value="Connexion"  action="index.xhtml" ajax="false" />
                                 </f:facet> 
                             </p:panelGrid> 
                             <div> 
